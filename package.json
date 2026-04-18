@@ -11,8 +11,8 @@
   "license": "MIT",
   "scripts": {
     "prebuild": "node scripts/prebuild.mjs",
-    "build": "bun run prebuild && next build",
-    "dev": "bun run prebuild && next dev",
+    "build": "node scripts/prebuild.mjs && next build",
+    "dev": "node scripts/prebuild.mjs && next dev",
     "start": "next start",
     "types:check": "fumadocs-mdx && tsc --noEmit",
     "postinstall": "fumadocs-mdx",
