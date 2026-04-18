@@ -1,0 +1,79 @@
+{
+  "displayName": "English",
+
+  "nav": {
+    "title": "Divine Skins Wiki",
+    "documentation": "Guides",
+    "contribute": "Contribute",
+    "discord": "Discord",
+    "search": "Search guides"
+  },
+
+  "home": {
+    "title": "Make custom skins for League of Legends",
+    "tagline": "Guides, tools, and workflows from the Divine Skins creator community.",
+    "ctaStart": "Start here",
+    "ctaBrowse": "Browse guides",
+    "ctaContribute": "Write a guide"
+  },
+
+  "contribute": {
+    "title": "Write a guide",
+    "subtitle": "Your guide ships as a pull request. Sign in with GitHub when you're ready to submit.",
+    "editorTab": "Visual editor",
+    "uploadTab": "Upload .mdx",
+    "signInGithub": "Sign in with GitHub",
+    "submit": "Submit for review",
+    "draftSaved": "Draft saved",
+    "draftRestored": "Draft restored from {ago}",
+    "manualLink": "Prefer the manual fork + PR flow? See CONTRIBUTING.md"
+  },
+
+  "misc": {
+    "loading": "Loading...",
+    "failedToLoad": "Failed to load.",
+    "gitInfoUnavailable": "Git info not available",
+    "credit": "Written by",
+    "lastUpdated": "Last updated",
+    "editOnGithub": "Edit on GitHub"
+  },
+
+  "meta": {
+    "guided-walkthrough": {
+      "title": "Start here"
+    },
+    "tools": {
+      "title": "Tools"
+    },
+    "maya": {
+      "title": "Maya"
+    },
+    "blender": {
+      "title": "Blender"
+    },
+    "animations": {
+      "title": "Animations"
+    },
+    "vfx-bins": {
+      "title": "VFX & bins"
+    },
+    "assets-library": {
+      "title": "Assets library"
+    },
+    "errors": {
+      "title": "Errors & fixes"
+    }
+  },
+
+  "callout": {
+    "defaultTitles": {
+      "info": "Info",
+      "warning": "Warning",
+      "danger": "Danger",
+      "success": "Success",
+      "lvl_beginner": "Level: Beginner",
+      "lvl_intermediate": "Level: Intermediate",
+      "lvl_advanced": "Level: Advanced"
+    }
+  }
+}
