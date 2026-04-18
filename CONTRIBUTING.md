@@ -41,7 +41,7 @@ For new categories, moving files, renaming, or structural rewrites — start a t
 
 ## Style and voice
 
-Read [`docs/voice.md`](./docs/voice.md) and [`docs/playbook.md`](./docs/playbook.md) before you write. Vale will flag voice violations in CI; fix them before merge.
+Read [`docs/voice.md`](./docs/voice.md) and [`docs/playbook.md`](./docs/playbook.md) before you write. Reviewers check voice violations before merge.
 
 ## What gets rejected
 

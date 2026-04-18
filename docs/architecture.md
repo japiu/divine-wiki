@@ -99,7 +99,6 @@ npm run build
 `.github/workflows/content-lint.yml` runs on every PR:
 - **markdownlint** — structure
 - **lychee** — broken links (accepts 429; excludes wiki/api divineskins domains)
-- **Vale** (`styles/Divine/`) — `BannedTerms.yml` (errors), `FancyWords.yml` (warnings)
 - **cSpell** — with Divine dictionary (champion names, skin lines, LoL jargon)
 - **Inline alt-text diff check** — fails if the PR adds `<img>` with no `alt`
 
@@ -121,7 +120,6 @@ Both are required before merge.
 - `messages/` — i18n UI strings. Edit `en.json`; others are Crowdin-owned.
 - `scripts/` — `prebuild.mjs` (always runs) + `migrate-content.mjs` (one-shot, idempotent).
 - `workers/submit-pr/` — optional Cloudflare Worker mirror of `/api/submit`.
-- `styles/Divine/` — Vale rules (source of truth for banned terms + fancy-word warnings).
 - `.github/` — workflows, CODEOWNERS, PR/issue templates.
 - `Reference/` — legacy Hytale + Divine Academy codebases. **Git-ignored. Never import from. Never modify.**
 

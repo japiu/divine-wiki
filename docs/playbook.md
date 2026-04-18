@@ -194,7 +194,6 @@ These three rules are the most durable piece of wiki governance ever written. Do
 - Markdown lint (`markdownlint`)
 - Broken-link check (`lychee`)
 - Spell check (`cSpell` with a Divine dictionary: champion names, skinlines, ability names)
-- Prose lint (`Vale`) — see below
 - Image size + EXIF strip on uploaded screenshots
 
 **PR template checklist** (reviewers tick publicly):
@@ -202,22 +201,6 @@ These three rules are the most durable piece of wiki governance ever written. Do
 - [ ] No banned terms (skin hack, undetectable, buy, etc.)
 - [ ] Screenshots compressed
 - [ ] Linked from the relevant hub page
-
----
-
-## Style enforcement (Vale)
-
-Vale is the community-standard prose linter. Runs in CI. Won't flag code fences. Enforces custom word lists.
-
-**Build a Divine Vale pack.** It enforces [`voice.md`](./voice.md) automatically:
-
-- Banned terms → error: `skin hack`, `skin changer`, `cheat`, `unlock skins`, `undetectable`, `buy`, `purchase`, `free-to-play skins`
-- Filler words → warning: `simply`, `just`, `basically`, `easily`, `quickly`, `please`, `as you can see`
-- Fancy → plain: `utilize → use`, `initiate → start`, `navigate to → go to`, `terminate → close`, `subsequently → then`, `in order to → to`, `ensure that → make sure`, `prior to → before`, `execute → run`, `select → click`
-- Sentence length → warning if > 20 words
-- Paragraph length → warning if > 3 sentences
-
-Add `alex.js` for insensitive language. Useful safety net for a teen/young-adult gamer audience where tone can drift edgy.
 
 ---
 
@@ -258,7 +241,7 @@ For a 16–24-year-old audience, social currency in Discord matters more than a 
 
 - [ ] Page type is one of the five (hub / tutorial / how-to / reference / troubleshooting / changelog)
 - [ ] Title says what the page is in 5 words or fewer
-- [ ] No banned terms (run Vale)
+- [ ] No banned terms (see [`voice.md`](./voice.md))
 - [ ] No filler words
 - [ ] Every step starts with a verb
 - [ ] Every sentence under 20 words

@@ -24,7 +24,7 @@ Cookbook for the tasks that come up most often. Follow these recipes instead of 
 
 6. `npm run dev` → `/en/docs/<category>/<slug>` should render.
 7. Check voice: no banned terms (see [`voice.md`](./voice.md)); every `<img>` has `alt`; safety callout near the top if the guide touches install.
-8. Commit. CI will run markdownlint + lychee + Vale + cSpell on the PR.
+8. Commit. CI will run markdownlint + lychee + cSpell on the PR.
 
 ## Add a new category
 
@@ -96,19 +96,10 @@ Most frequent causes:
 5. **`<` followed by a digit**: escape as `\<3`, `\<60k`.
 6. **External image timeout**: `source.config.ts` already sets `external: false, onError: "ignore"`. If a URL still blocks, replace it with a local copy in `/public/wiki-images/`.
 
-## Change the banned-terms list
-
-Edit `styles/Divine/BannedTerms.yml`. Vale runs in CI on every PR.
-
-- Adding a term: bump it onto the `tokens` list. Keep the singular; Vale handles plurals.
-- Promoting a warning to an error: move from `FancyWords.yml` (warning level) to `BannedTerms.yml` (error level).
-- Also update [`voice.md`](./voice.md) and the "Conventions" section of `CLAUDE.md` so humans + AI see the same rules.
-
 ## Update voice rules
 
-1. Change [`voice.md`](./voice.md) (human-readable).
-2. Mirror the change in `styles/Divine/` (enforced).
-3. If it's a word swap, put the bad word in `FancyWords.yml` with its replacement, so Vale suggests the fix inline.
+1. Change [`voice.md`](./voice.md) (human-readable source of truth).
+2. Mirror any banned-term changes in the "Conventions" section of `CLAUDE.md` so humans + AI see the same rules.
 
 ## Add a new Lucide icon to a category
 

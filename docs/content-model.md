@@ -146,7 +146,7 @@ Banned terms are errors (the PR fails):
 
 Warnings are non-blocking but please fix them: `utilize`, `initiate`, `navigate to`, `terminate`, `subsequently`, `in order to`, `ensure that`, `prior to`, `execute`, `select`, `simply`, `just`, `basically`, `easily`, `please`.
 
-Full rules in [`voice.md`](./voice.md). Rule pack lives in `styles/Divine/`.
+Full rules in [`voice.md`](./voice.md).
 
 ## Safety wording (non-negotiable)
 

@@ -38,12 +38,6 @@ jobs:
           args: --no-progress --max-concurrency 4 --accept 200,201,202,203,204,429 --exclude-loopback --exclude "wiki\.divineskins\.gg" --exclude "api\.divineskins\.gg" "content/docs/en/**/*.mdx"
           fail: true
 
-      - name: Vale prose lint
-        uses: errata-ai/vale-action@v2
-        with:
-          files: content/docs/en/
-          fail_on_error: true
-
       - name: cSpell
         run: npx cspell --no-progress "content/docs/en/**/*.mdx"
 

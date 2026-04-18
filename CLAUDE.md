@@ -23,7 +23,7 @@ node scripts/migrate-content.mjs   # one-shot content migration; idempotent
 node scripts/prebuild.mjs          # regenerates src/git-info.json
 ```
 
-CI runs on every PR: `.github/workflows/content-lint.yml` (markdownlint + lychee + Vale + cSpell + alt-text guard) and `.github/workflows/format-check.yml` (Prettier). Failing any blocks merge.
+CI runs on every PR: `.github/workflows/content-lint.yml` (markdownlint + lychee + cSpell + alt-text guard) and `.github/workflows/format-check.yml` (Prettier). Failing any blocks merge.
 
 ## Directory layout
 
@@ -48,7 +48,6 @@ src/components/mdx/       Components exposed to MDX authors (Callout, etc.).
 src/lib/source.ts         Fumadocs source loader.
 src/lib/layout.shared.tsx Nav config used by both home and docs layouts.
 src/lib/i18n.ts           Fumadocs i18n (en, fr-FR, tr-TR, pt-BR — top markets).
-styles/Divine/            Vale style pack enforced in CI.
 workers/submit-pr/        Optional Cloudflare Worker for edge PR creation.
 Reference/                Legacy codebases (Hytale + Divine Academy). IGNORE.
 ```
@@ -78,7 +77,7 @@ Reference/                Legacy codebases (Hytale + Divine Academy). IGNORE.
   - `<` before a digit (e.g. `<3`, `<60k`) must be escaped as `\<3`.
   - Every `<Tabs>` needs a matching `</Tabs>`. Every `<Tab value="x">` needs `</Tab>`. Blank lines between JSX and Markdown content.
   - Code fences must balance. Don't nest them.
-- **Voice**: read `docs/voice.md` before writing anything user-facing. Vale enforces it in CI. **Banned terms**: `skin hack`, `skin changer`, `unlock skins`, `undetectable`, `free-to-play skins`, `exploit`. Use: `custom skin`, `safe`, `customize`, `download`.
+- **Voice**: read `docs/voice.md` before writing anything user-facing. **Banned terms**: `skin hack`, `skin changer`, `unlock skins`, `undetectable`, `free-to-play skins`, `exploit`. Use: `custom skin`, `safe`, `customize`, `download`.
 - **Never recommend custom skins on Korean or Chinese servers.** Anti-cheat blocks all mods there; accounts get banned.
 - **TypeScript**: strict; path alias `@/*` → `src/*`.
 - **Commits**: Conventional Commits preferred, not required. No Claude co-author trailers, no emoji.
@@ -116,7 +115,7 @@ See `.env.example` for the full list. Minimum for **local dev**: none — dev bo
 - [ ] File at `content/docs/en/<category>/<slug>.mdx`, kebab-case
 - [ ] Frontmatter has `title` + `description`
 - [ ] `meta.json` in that category updated with the slug in the right order
-- [ ] No banned terms (run `npm run format` first to catch bugs; Vale catches voice)
+- [ ] No banned terms (see `docs/voice.md`)
 - [ ] All `<img>` have `alt="..."`
 - [ ] Images ≤ 500 KB (more = slow Pages build)
 - [ ] Safety callout near the top if the guide touches install or regions
@@ -130,6 +129,6 @@ See `.env.example` for the full list. Minimum for **local dev**: none — dev bo
 - Don't put business logic in `src/app/api/` routes; they're thin wrappers.
 - Don't use `<ViewTransition>` from React (Canary-only) — we're on stable.
 - Don't re-enable `experimental.viewTransition` in `next.config.mjs` without upgrading React first.
-- Don't bypass the Vale/markdownlint gates by adding noqa-style escapes — fix the content.
+- Don't bypass the markdownlint gate by adding noqa-style escapes — fix the content.
 - Don't commit `bun.lock` — this project uses npm locally.
 - Don't `git push --force` to `main`. Feature branches only.
