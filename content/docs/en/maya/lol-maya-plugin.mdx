@@ -1,0 +1,111 @@
+---
+title: "LoL Maya Plugin"
+description: "To start working with League models in Maya, you'll need the LoL-Maya plugin by Tarngaina."
+category: "maya"
+---
+
+## Installing the LoL-Maya Plugin
+
+To start working with League models in Maya, you'll need the **LoL-Maya plugin** by **Tarngaina**.
+
+> ⚠️ For newer versions of Maya, you can also use **Lemon 3D** along with **LtMAO** (also by Tarngaina) to ensure compatibility.
+
+[LoL-Maya Plugin | Download the latest release by Tarngaina](https://github.com/tarngaina/lol_maya/releases)
+[LtMAO | Compatibility tool for newer Maya versions](https://github.com/tarngaina/LtMAO)
+
+<img src="/wiki-images/1767019072359-dfx5or.png" alt="LoL-Maya Plugin Interface" width={800} />
+
+---
+
+## Download the Plugin
+
+Download **LoL-Maya (Latest Version)**
+Make sure you are using the most recent release.
+
+---
+
+## Install the Plugin
+
+1. Extract the contents of the `.zip` file.
+2. Copy all plugin files to your Maya directory.
+
+Place the following folders into:
+
+```
+Documents\maya\2023\
+```
+
+* `plug-ins`
+* `prefs`
+* `scripts`
+
+---
+
+## Enable the Plugin in Maya
+
+1. Open **Maya**
+2. Go to:
+   **Windows → Settings/Preferences → Plug-in Manager**
+3. Locate **lol_maya** in the list
+4. Enable both:
+
+   * **Loaded**
+   * **Auto Load**
+5. Click **Close**, then restart Maya
+
+If successful, you will see **LoLMaya** and **LoLMaya_MAPGEO** tabs in Maya’s main toolbar.
+
+---
+
+
+### Troubleshooting
+
+<Tabs items={["Plugin Not Showing", "Tabs Missing", "Maya Compatibility"]}>
+<Tab value="Plugin Not Showing">
+
+### Plugin not appearing in Plug-in Manager
+
+**Causes:**
+- Files not in correct folder
+- Wrong Maya version folder
+
+**Fix:**
+1. Verify files are in `Documents\maya\[YOUR_VERSION]\`
+2. Ensure all three folders (`plug-ins`, `prefs`, `scripts`) are present
+3. Restart Maya completely
+
+</Tab>
+<Tab value="Tabs Missing">
+
+### Tabs not appearing after loading
+
+**Causes:**
+- Plugin loaded but UI not refreshed
+- Maya needs restart
+
+**Fix:**
+1. Close Maya completely
+2. Reopen Maya
+3. Check Plug-in Manager again
+4. Ensure **Loaded** and **Auto Load** are both enabled
+
+</Tab>
+<Tab value="Maya Compatibility">
+
+### Newer Maya version issues
+
+For **Maya 2024+**, the standard plugin may have compatibility issues.
+
+**Solution:** Use **Lemon 3D + LtMAO** together:
+
+[LtMAO | Download for newer Maya compatibility](https://github.com/tarngaina/LtMAO)
+
+</Tab>
+</Tabs>
+
+
+---
+
+## Credits
+
+**Tool by:** [Tarngaina](https://github.com/tarngaina)

@@ -1,0 +1,8 @@
+{
+  "title": "{meta.errors.title}",
+  "icon": "AlertTriangle",
+  "pages": [
+    "index",
+    "maya-errors"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "title": "{meta.tools.title}",
+  "icon": "Wrench",
+  "pages": [
+    "index",
+    "cs-lol-manager",
+    "ltmao",
+    "ritobin",
+    "league-mod-repather",
+    "tex-thumbnail-provider",
+    "obsidian",
+    "visual-studio-code",
+    "blender",
+    "maya",
+    "photoshop",
+    "photoshop-tex-plugin",
+    "gimp",
+    "gimp-tex-plugin"
+  ]
+}
