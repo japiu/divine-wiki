@@ -3,18 +3,21 @@
   "icon": "Wrench",
   "pages": [
     "index",
-    "cs-lol-manager",
+    "flint",
+    "jade",
+    "aventurine",
     "ltmao",
+    "obsidian",
     "ritobin",
+    "cs-lol-manager",
     "league-mod-repather",
     "tex-thumbnail-provider",
-    "obsidian",
-    "visual-studio-code",
     "blender",
     "maya",
     "photoshop",
     "photoshop-tex-plugin",
     "gimp",
-    "gimp-tex-plugin"
+    "gimp-tex-plugin",
+    "visual-studio-code"
   ]
 }
