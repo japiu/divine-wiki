@@ -46,8 +46,8 @@ src/app/[lang]/docs/      Docs pages (DocsLayout + MDX renderer).
 src/app/[lang]/draft/     In-browser MDX draft editor (CodeMirror + live preview).
                           ?edit=<path> edits an existing page; ?new=<category>
                           starts a fresh one. Opens a PR via src/lib/draft/github.ts.
-src/app/api/              health, og, search, preview — read-only, no secrets.
-                          /api/preview renders draft MDX server-side for the editor.
+src/app/api/              health, og, search — read-only, no secrets. The /draft
+                          preview compiles MDX in the browser, not on the server.
 src/app/llms.txt/         /llms.txt + /llms-full.txt routes for LLM crawlers.
 src/app/proxy.ts          Fumadocs i18n middleware (this is Next's middleware —
                           named proxy.ts in this project, not middleware.ts).
@@ -104,7 +104,7 @@ The nine categories under `lol/` are: `guided-walkthrough`, `tools`, `maya`, `bl
 
 ## Environment variables
 
-See `.env.example` for the full list. None are required for local dev or for production builds. The app runs SSR on Cloudflare Workers but holds no secrets — the runtime API routes (`health`, `og`, `search`, `preview`) are read-only. `NEXT_PUBLIC_*` are public build-time config (set in `wrangler.toml` `[vars]`). `CROWDIN_PROJECT_ID` + `CROWDIN_PERSONAL_TOKEN` are unused (the Crowdin sync workflows were removed 2026-06-11, never configured); kept in `.env.example` in case manual sync returns. Cloudflare deploy: Workers Builds runs `npx opennextjs-cloudflare build` then `npx wrangler deploy` on push to `main`.
+See `.env.example` for the full list. None are required for local dev or for production builds. The app runs SSR on Cloudflare Workers but holds no secrets — the runtime API routes (`health`, `og`, `search`) are read-only. `NEXT_PUBLIC_*` are public build-time config (set in `wrangler.toml` `[vars]`). `CROWDIN_PROJECT_ID` + `CROWDIN_PERSONAL_TOKEN` are unused (the Crowdin sync workflows were removed 2026-06-11, never configured); kept in `.env.example` in case manual sync returns. Cloudflare deploy: Workers Builds runs `npx opennextjs-cloudflare build` then `npx wrangler deploy` on push to `main`.
 
 ## Known gotchas — save yourself time
 
@@ -117,7 +117,7 @@ See `.env.example` for the full list. None are required for local dev or for pro
 7. **Localized pages** (fr-FR, tr-TR, pt-BR) are **Crowdin-managed**. Never hand-edit `content/docs/fr-FR/**` or similar. The CI sync workflows were removed 2026-06-11 (never configured), so locales are frozen for now; Crowdin stays the source of truth if sync returns.
 8. **`.prettierignore` excludes non-English MDX** from format so Crowdin-managed content doesn't churn.
 9. **`Reference/` is git-ignored and read-only for our purposes.** Two big reference codebases live there (Hytale Modding's Fumadocs site we scaffolded from, and the legacy Divine Academy site). Do not modify or import from them.
-10. **`/draft` editor uses two MDX pipelines.** Build-time uses `source.config.ts` (fumadocs-mdx). Runtime preview uses `src/lib/draft/mdx-config.ts` via `/api/preview`. If you add a remark/rehype plugin to one, mirror it in the other or the editor preview will diverge from the published page.
+10. **`/draft` editor uses two MDX pipelines.** Build-time uses `source.config.ts` (fumadocs-mdx). The live preview compiles in the browser via `src/lib/draft/compile-preview.ts` (which pulls plugins from `src/lib/draft/mdx-config.ts`). If you add a remark/rehype plugin to one, mirror it in the other or the editor preview will diverge from the published page. Also: next-mdx-remote v6 `serialize` defaults to `blockJS: true`, which silently strips every JSX expression attribute (`parameters={[...]}` becomes no prop at all). `compile-preview.ts` sets `blockJS: false` — keep it that way or components with object props break in the preview only.
 11. **Middleware file is `src/app/proxy.ts`, not `middleware.ts`.** Fumadocs' i18n middleware factory is what's exported. Don't rename it; Next still picks it up via the `proxy.ts` convention used here.
 
 ## When adding a new guide (sanity checklist)

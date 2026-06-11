@@ -17,13 +17,13 @@ This policy covers:
 
 - The wiki site itself (`wiki.divineskins.gg`)
 - The in-browser draft editor at `/draft`
-- The read-only API routes under `/api/` (`health`, `og`, `search`, `preview`)
+- The read-only API routes under `/api/` (`health`, `og`, `search`)
 
 The site renders server-side on Cloudflare Workers but has no auth, no user accounts, and no runtime secrets; the API routes are read-only. Contributions are GitHub-native: the `/draft` editor opens a pull request via a client-side GitHub URL handoff (`src/lib/draft/github.ts`); it never holds a token or acts on a user's behalf.
 
 ## What we care about most
 
-- XSS in rendered MDX content (build-time pages and the `/api/preview` draft render)
+- XSS in rendered MDX content (build-time pages and the in-browser `/draft` preview)
 - Anything in the `/draft` handoff that could be abused to forge or hijack a pull request
 
 ## Response

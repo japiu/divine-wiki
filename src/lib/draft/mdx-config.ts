@@ -2,7 +2,7 @@ import remarkYouTube from "@/lib/remark-youtube";
 import remarkImgJsx from "@/lib/draft/remark-img-jsx";
 
 /**
- * Remark plugins used by the runtime /api/preview route.
+ * Remark plugins used by the in-browser draft preview (compile-preview.ts).
  *
  * Keep this list in sync with the `remarkPlugins` array in `source.config.ts`
  * (the Fumadocs build pipeline). next-mdx-remote can't perfectly replicate

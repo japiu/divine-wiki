@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { MDXRemote, type MDXRemoteSerializeResult } from "next-mdx-remote";
 import { useMessages } from "@/lib/hooks/useMessages";
 import { type StagedImages } from "@/lib/draft/staged-images";
+import { compilePreview } from "@/lib/draft/compile-preview";
 import { buildPreviewComponents } from "./preview-components";
 
 export type PreviewStatus = "loading" | "ok" | "error" | "unavailable";
@@ -49,42 +50,36 @@ export function PreviewPane({
 
   useEffect(() => {
     if (timer.current) clearTimeout(timer.current);
-    const controller = new AbortController();
+    let cancelled = false;
     // Status updates also notify the parent (live/error dot in the pane
     // header). `onStatusChange` is in the deps; the parent memoizes it.
     const apply = (next: PreviewStatus) => {
+      if (cancelled) return;
       setStatus(next);
       onStatusChange?.(next);
     };
     timer.current = setTimeout(async () => {
       apply("loading");
       try {
-        const res = await fetch("/api/preview", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ mdx }),
-          signal: controller.signal,
-        });
-        const data = await res.json();
-        if (data.ok) {
-          setSerialized(data.serialized);
+        const result = await compilePreview(mdx);
+        if (cancelled) return;
+        if (result.ok) {
+          setSerialized(result.serialized);
           setError(null);
           apply("ok");
         } else {
-          setError({
-            message: data.error ?? "MDX failed to compile",
-            line: data.line ?? null,
-          });
+          setError({ message: result.error, line: result.line });
           apply("error");
         }
-      } catch (err) {
-        if (err instanceof DOMException && err.name === "AbortError") return;
+      } catch {
+        // The compiler chunk failed to load (e.g. went offline before the
+        // first compile). Compile errors never reach here — they're values.
         apply("unavailable");
       }
     }, DEBOUNCE_MS);
     return () => {
+      cancelled = true;
       if (timer.current) clearTimeout(timer.current);
-      controller.abort();
     };
   }, [mdx, onStatusChange]);
 

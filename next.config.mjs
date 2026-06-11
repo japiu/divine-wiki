@@ -46,10 +46,6 @@ const config = {
         ],
       },
       {
-        source: "/api/preview",
-        headers: [{ key: "Cache-Control", value: "no-store" }],
-      },
-      {
         source: "/api/search",
         headers: [{ key: "Cache-Control", value: "no-store" }],
       },

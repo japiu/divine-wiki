@@ -30,6 +30,7 @@ import {
   overflowSnippets,
   type ComponentSnippet,
 } from "@/lib/draft/snippets";
+import { compilePreview } from "@/lib/draft/compile-preview";
 import { buildPreviewComponents } from "./preview-components";
 
 // Lucide icons plus our Simple Icons brand logos (lucide v1 dropped brands).
@@ -169,14 +170,9 @@ function Tooltip({
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/api/preview", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ mdx: snippet.preview }),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (!cancelled && data.ok) setPreview(data.serialized);
+    compilePreview(snippet.preview)
+      .then((result) => {
+        if (!cancelled && result.ok) setPreview(result.serialized);
       })
       .catch(() => {
         if (!cancelled) setPreview(null);
