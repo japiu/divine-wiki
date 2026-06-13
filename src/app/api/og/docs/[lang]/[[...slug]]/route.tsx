@@ -223,7 +223,10 @@ async function loadFonts(origin: string): Promise<OgFont[] | undefined> {
   if (cachedFonts !== undefined) return cachedFonts ?? undefined;
   const loaded = await Promise.all(
     FONT_WEIGHTS.map(async (weight) => {
-      const data = await loadPublicAsset(origin, `/fonts/Manrope-${weight}.ttf`);
+      const data = await loadPublicAsset(
+        origin,
+        `/fonts/Manrope-${weight}.ttf`,
+      );
       return data
         ? { name: "Manrope", data, weight, style: "normal" as const }
         : null;
