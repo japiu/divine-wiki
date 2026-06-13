@@ -7,6 +7,8 @@ import { useParams } from "next/navigation";
 import {
   AlertTriangle,
   ArrowLeft,
+  Blocks,
+  BookOpen,
   Check,
   ChevronDown,
   Eye,
@@ -18,6 +20,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { DiscordLogo, GitHubLogo } from "@/components/brand-logos";
 import { useMessages } from "@/lib/hooks/useMessages";
 import { deriveSlug, isValidSlug } from "@/lib/draft/slug";
 import { CodeEditor, type CodeEditorHandle } from "./code-editor";
@@ -83,6 +86,8 @@ export function DraftEditor({
   const [slugTouched, setSlugTouched] = useState(false);
   const [slug, setSlug] = useState("");
   const [body, setBody] = useState("");
+  const [discord, setDiscord] = useState("");
+  const [github, setGithub] = useState("");
   const [handoff, setHandoff] = useState<
     null | { step: "links" } | { step: "main" }
   >(null);
@@ -109,8 +114,8 @@ export function DraftEditor({
   );
 
   const assembledMdx = useMemo(
-    () => assembleMdx({ title, description, body }),
-    [title, description, body],
+    () => assembleMdx({ title, description, body, discord, github }),
+    [title, description, body, discord, github],
   );
 
   const canContribute =
@@ -152,6 +157,8 @@ export function DraftEditor({
       category,
       slug: effectiveSlug,
       body,
+      discord,
+      github,
       savedAt: Date.now(),
     });
   }, [
@@ -161,6 +168,8 @@ export function DraftEditor({
     category,
     effectiveSlug,
     body,
+    discord,
+    github,
     loadingSource,
   ]);
 
@@ -191,6 +200,11 @@ export function DraftEditor({
         const parsed = matter(raw);
         setTitle((parsed.data.title as string) ?? "");
         setDescription((parsed.data.description as string) ?? "");
+        const credits = parsed.data.credits as
+          | { discord?: string; github?: string }
+          | undefined;
+        setDiscord(credits?.discord ?? "");
+        setGithub(credits?.github ?? "");
         setBody(parsed.content.replace(/^\s+/, ""));
         // editPath is the page's slug path including the game segment,
         // e.g. "lol/tools/flint" — the category is the second part.
@@ -223,6 +237,8 @@ export function DraftEditor({
     setSlugTouched(true);
     setSlug(restorePrompt.slug);
     setBody(restorePrompt.body);
+    setDiscord(restorePrompt.discord ?? "");
+    setGithub(restorePrompt.github ?? "");
     setRestorePrompt(null);
   };
 
@@ -345,6 +361,29 @@ export function DraftEditor({
         </div>
 
         <div className="ml-auto flex items-center gap-2.5">
+          {/* Help links — new tab so an open draft is never navigated away. */}
+          <Link
+            href={`/${lang}/docs/lol/contributing`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-divine-text-muted hover:text-divine-text hidden items-center gap-1.5 text-xs font-medium transition-colors md:flex"
+          >
+            <BookOpen className="size-3.5" />
+            {d.contributingGuide}
+          </Link>
+          <Link
+            href={`/${lang}/docs/lol/contributing/components`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-divine-text-muted hover:text-divine-text hidden items-center gap-1.5 text-xs font-medium transition-colors md:flex"
+          >
+            <Blocks className="size-3.5" />
+            {d.components}
+          </Link>
+          <span
+            aria-hidden
+            className="bg-divine-border/70 hidden h-5 w-px md:block"
+          />
           {hasSaved && (
             <span className="text-divine-text-muted hidden items-center gap-1 text-xs sm:flex">
               <Check className="text-divine-success size-3.5" />
@@ -353,7 +392,7 @@ export function DraftEditor({
           )}
           <button
             type="button"
-            className="inline-flex h-9 items-center gap-2 rounded-full bg-gradient-to-r from-[#B472FF] to-[#783CB5] px-5 text-sm font-semibold text-white shadow-[0_0_54px_-7px_#783CB5] transition-shadow hover:shadow-[0_0_5px_#783CB5,0_0_25px_#783CB5,0_0_25px_#783CB5,0_0_100px_#783CB5] disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none disabled:hover:shadow-none"
+            className="inline-flex h-9 items-center gap-2 rounded-full bg-gradient-to-r from-[#B472FF] to-[#783CB5] px-5 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
             disabled={!canContribute}
             onClick={handleContribute}
           >
@@ -466,6 +505,30 @@ export function DraftEditor({
                 </span>
               </span>
             </label>
+
+            {/* Optional credit handles — written to the `credits` frontmatter
+                block and shown at the bottom of the published page. */}
+            <label className="hover:border-divine-primary/40 focus-within:border-divine-primary/50 flex h-9 items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 transition-colors">
+              <DiscordLogo className="text-divine-text-muted size-3.5 shrink-0" />
+              <input
+                aria-label={d.fieldDiscord}
+                className="text-divine-text placeholder:text-divine-text-muted/40 w-36 bg-transparent text-sm outline-none"
+                placeholder={d.fieldDiscordPlaceholder}
+                value={discord}
+                onChange={(e) => setDiscord(e.target.value)}
+              />
+            </label>
+
+            <label className="hover:border-divine-primary/40 focus-within:border-divine-primary/50 flex h-9 items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 transition-colors">
+              <GitHubLogo className="text-divine-text-muted size-3.5 shrink-0" />
+              <input
+                aria-label={d.fieldGithub}
+                className="text-divine-text placeholder:text-divine-text-muted/40 w-36 bg-transparent text-sm outline-none"
+                placeholder={d.fieldGithubPlaceholder}
+                value={github}
+                onChange={(e) => setGithub(e.target.value)}
+              />
+            </label>
           </div>
         </div>
 
@@ -516,7 +579,7 @@ export function DraftEditor({
               onInsert={handleInsert}
               onUploadImage={addImages}
               docsHref={(anchor) =>
-                `/${lang}/docs/contributing/components#${anchor}`
+                `/${lang}/docs/lol/contributing/components#${anchor}`
               }
             />
             <div className="min-h-0 flex-1 overflow-hidden">
@@ -578,6 +641,7 @@ export function DraftEditor({
                   stagedImages={stagedImages}
                   title={title}
                   description={description}
+                  credits={{ discord, github }}
                   onStatusChange={handlePreviewStatus}
                 />
               )}

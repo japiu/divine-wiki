@@ -13,6 +13,7 @@ import Link from "next/link";
 import { ogLanguageBlacklist } from "@/lib/i18n";
 import { Separator } from "@/components/ui/separator";
 import { DocsLanding } from "@/components/home/docs-landing";
+import { PageCredits } from "@/components/page-credits";
 import { DocsBanner } from "../docs-banner";
 
 export default async function Page(
@@ -83,12 +84,18 @@ export default async function Page(
           })}
         />
         <hr className="border-divine-border my-8" />
-        <Link
-          href={`/${params.lang}/draft?edit=${page.slugs.join("/")}`}
-          className="text-divine-primary-light text-sm hover:underline"
-        >
-          {messages.misc?.editOnGithub ?? "Edit on GitHub"} →
-        </Link>
+        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+          <PageCredits
+            credits={page.data.credits}
+            label={messages.misc?.madeBy ?? "Made by"}
+          />
+          <Link
+            href={`/${params.lang}/draft?edit=${page.slugs.join("/")}`}
+            className="text-divine-primary-light text-sm hover:underline"
+          >
+            {messages.misc?.editOnGithub ?? "Edit on GitHub"} →
+          </Link>
+        </div>
       </DocsBody>
     </DocsPage>
   );

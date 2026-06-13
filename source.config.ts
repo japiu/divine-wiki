@@ -24,6 +24,14 @@ const frontmatterSchema = z.object({
     )
     .optional(),
   patch: z.string().optional(),
+  // Contributor credit shown at the bottom of the page. Both optional —
+  // the /draft editor writes this block only when at least one is filled.
+  credits: z
+    .object({
+      discord: z.string().optional(),
+      github: z.string().optional(),
+    })
+    .optional(),
 });
 
 export const docs = defineDocs({

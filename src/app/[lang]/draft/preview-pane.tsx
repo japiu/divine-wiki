@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { MDXRemote, type MDXRemoteSerializeResult } from "next-mdx-remote";
 import { useMessages } from "@/lib/hooks/useMessages";
+import { PageCredits, type PageCreditsData } from "@/components/page-credits";
 import { type StagedImages } from "@/lib/draft/staged-images";
 import { compilePreview } from "@/lib/draft/compile-preview";
 import { buildPreviewComponents } from "./preview-components";
@@ -16,6 +17,8 @@ interface PreviewPaneProps {
   /** Rendered as the page header above the body, like the published page. */
   title?: string;
   description?: string;
+  /** Rendered as the credit line below the body, like the published page. */
+  credits?: PageCreditsData;
   /** Lets the parent surface a live/error indicator in the pane header. */
   onStatusChange?: (status: PreviewStatus) => void;
 }
@@ -27,6 +30,7 @@ export function PreviewPane({
   stagedImages,
   title,
   description,
+  credits,
   onStatusChange,
 }: PreviewPaneProps) {
   const messages = useMessages();
@@ -126,6 +130,13 @@ export function PreviewPane({
           </div>
         )
       )}
+
+      {/* Credit line — same treatment as the published docs page. */}
+      <PageCredits
+        credits={credits}
+        label={messages.misc.madeBy}
+        className="border-divine-border/60 mt-8 border-t pt-5"
+      />
     </div>
   );
 }

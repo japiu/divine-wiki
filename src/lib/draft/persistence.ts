@@ -4,6 +4,9 @@ export interface PersistedDraft {
   category: string;
   slug: string;
   body: string;
+  // Optional so drafts saved before the credits feature still load.
+  discord?: string;
+  github?: string;
   savedAt: number;
 }
 
