@@ -61,6 +61,11 @@ const config = {
     ];
   },
   async redirects() {
+    // Constrain :lang to real locales. A bare ":lang" segment matches ANY
+    // top-level path (including dotted files), so an unconstrained "/:lang"
+    // redirect swallows /robots.txt, /sitemap.xml, /llms.txt, etc. and sends
+    // them to dead URLs. Keep this list in sync with src/lib/i18n.ts.
+    const locale = "en|fr-FR|tr-TR|pt-BR";
     return [
       {
         source: "/docs/:path*",
@@ -78,7 +83,7 @@ const config = {
         permanent: true,
       },
       {
-        source: "/:lang/contribute",
+        source: `/:lang(${locale})/contribute`,
         destination: "/:lang/docs/lol/contributing",
         permanent: true,
       },
@@ -91,12 +96,12 @@ const config = {
 and docs page, i replaced both with the new one technically
 - bud*/
       {
-        source: "/:lang/docs",
+        source: `/:lang(${locale})/docs`,
         destination: "/:lang/docs/lol",
         permanent: false,
       },
       {
-        source: "/:lang",
+        source: `/:lang(${locale})`,
         destination: "/:lang/docs/lol",
         permanent: false,
       },
