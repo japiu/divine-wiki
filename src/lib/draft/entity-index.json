@@ -162,12 +162,6 @@
     "url": "/docs/lol/tools/modding-apps/hematite"
   },
   {
-    "title": "Hexbelt",
-    "slug": "hexbelt",
-    "category": "tools",
-    "url": "/docs/lol/tools/modding-apps/hexbelt"
-  },
-  {
     "title": "Jade",
     "slug": "jade",
     "category": "tools",
@@ -190,12 +184,6 @@
     "slug": "manifest-downloader-gui",
     "category": "tools",
     "url": "/docs/lol/tools/modding-apps/manifest-downloader-gui"
-  },
-  {
-    "title": "Obsidian",
-    "slug": "obsidian",
-    "category": "tools",
-    "url": "/docs/lol/tools/modding-apps/obsidian"
   },
   {
     "title": "Quartz",

@@ -5,6 +5,11 @@
 /docs /en/docs 302
 /docs/* /en/docs/:splat 302
 
+# Retired tools (2026-06-14): Obsidian and Hexbelt are out of the flow, replaced
+# by Flint and Quartz. Point old links at Flint, the all-in-one extractor.
+/:lang/docs/lol/tools/modding-apps/obsidian /:lang/docs/lol/tools/modding-apps/flint 301
+/:lang/docs/lol/tools/modding-apps/hexbelt  /:lang/docs/lol/tools/modding-apps/flint 301
+
 # Game-segment migration (2026-05-19): old per-category URLs now live under /lol/.
 # Keep these redirects until external traffic to the old shape has decayed.
 /:lang/docs/guided-walkthrough/* /:lang/docs/lol/guided-walkthrough/:splat 301
